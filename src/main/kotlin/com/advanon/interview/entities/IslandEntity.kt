@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "islands")
-data class IslandEntity(@Id @JsonIgnore var id: String? = null,
-                        val tiles: List<Tile>,
-                        val map_id: String)
+data class IslandEntity(
+        val tiles: List<Tile>,
+        val map_id: String,
+        @Id @JsonIgnore var id: String? = null)

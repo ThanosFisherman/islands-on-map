@@ -15,10 +15,12 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 class InterviewApplication {
 
     val log = LoggerFactory.getLogger(this.javaClass)
+
     @Bean
     fun init(restClient: RestClient, mapServiceDao: MapServiceDao, islandServiceDao: IslandServiceDao) = CommandLineRunner {
         val map = restClient.getMap()
         mapServiceDao.saveOrUpdateMap(map)
+        // islandServiceDao.locateIslands(map)
         islandServiceDao.printArray(map)
     }
 }
