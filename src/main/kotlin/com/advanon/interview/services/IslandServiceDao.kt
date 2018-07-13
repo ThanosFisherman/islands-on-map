@@ -46,7 +46,7 @@ class IslandServiceDao(private val islandRepository: IslandRepository) {
         val tiles = mapEntity.attributes.tiles.toMutableList()
 
         tiles.sortWith(Comparator { o1, o2 ->
-            if (compareValues(o1.x, o2.x) == 0) compareValues(o1.x, o2.x) else compareValues(o1.y, o2.y)
+            if (compareValues(o1.x, o2.x) == 0) 0 else compareValues(o1.y, o2.y)
         })
 
         return tiles
