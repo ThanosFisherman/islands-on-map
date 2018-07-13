@@ -22,6 +22,7 @@ class InterviewApplication {
         mapServiceDao.saveOrUpdateMap(map)
         // islandServiceDao.locateIslands(map)
         islandServiceDao.printArray(map)
+        islandServiceDao.locateIslands(map)
     }
 }
 

@@ -18,37 +18,28 @@ interface IslandRepository : MongoRepository<IslandEntity, String>
 class IslandServiceDao(private val islandRepository: IslandRepository) {
     val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    /** using Collection instead of Array makes your live easier. Consider renaming this to "directions".  */
-    val coordinates = listOf(
-            //Tile(-1, -1, "land"), // left Bottom
-            Tile(-1, 0, "land"), // left middle
-            //Tile(-1, +1, "land"), // left Top
-            Tile(0, -1, "land"), // Bottom
-            Tile(0, +1, "land"), // Top
-            // Tile(+1, -1, "land"), // right Bottom
-            Tile(+1, 0, "land") // right middle
-            //Tile(+1, +1, "land")  // right Top
-    )
+    fun locateIslands(mapEntity: MapEntity) {
+        val map2d = build2dArray(mapEntity)
 
-    fun locateIslands(mapEntity: MapEntity): List<IslandEntity> {
-        val sortedTiles = sortCoords(mapEntity)
-        val neighbors = mutableListOf<Tile>()
-        for (tile in sortedTiles) {
-            if (tile.type == "water") continue
+        var counter = 0
 
-            log.info("OUTTER TILE " + tile.toString())
-            for (tileN in coordinates) {
-                val newTile = tile.move(tileN)
-                if (sortedTiles.contains(newTile)) {
-                    neighbors.add(newTile)
-
+        for (i in map2d.indices)
+            for (j in map2d[i].indices) {
+                if (map2d[i][j].type == "land") {
+                    counter++
+                    changeLandToWater(map2d, i, j)
                 }
-                log.info(newTile.toString())
-
             }
+        log.info("NUMBER OF ISLANDS $counter")
+    }
 
-        }
-        return islandRepository.findAll()
+    private fun changeLandToWater(map2d: Array<Array<Tile>>, i: Int, j: Int) {
+        if (i < 0 || i >= map2d.size || j < 0 || j >= map2d[0].size || map2d[i][j].type == "water") return
+        map2d[i][j].type = "water"
+        changeLandToWater(map2d, i - 1, j)
+        changeLandToWater(map2d, i + 1, j)
+        changeLandToWater(map2d, i, j - 1)
+        changeLandToWater(map2d, i, j + 1)
     }
 
     private fun sortCoords(mapEntity: MapEntity): List<Tile> {
@@ -58,32 +49,30 @@ class IslandServiceDao(private val islandRepository: IslandRepository) {
             if (compareValues(o1.x, o2.x) == 0) compareValues(o1.x, o2.x) else compareValues(o1.y, o2.y)
         })
 
-        log.info("SIZE ${tiles.size}")
-
         return tiles
     }
 
     fun printArray(mapEntity: MapEntity) {
 
-        val strings = build2dArray(mapEntity)
+        val map2d = build2dArray(mapEntity)
         // Array Value Printing
-        for (row in strings) {
+        for (row in map2d) {
             for (j in row)
-                print(j)
+                print(if (j.type == "land") "X" else "-")
             println("")
         }
     }
 
-    private fun build2dArray(mapEntity: MapEntity): Array<Array<String>> {
+    private fun build2dArray(mapEntity: MapEntity): Array<Array<Tile>> {
         val tiles = sortCoords(mapEntity)
-        val strings = Array(tiles[tiles.size - 1].y) { Array<String>(tiles[tiles.size - 1].x) { "-" } }
+        val tiles2d = Array(tiles[tiles.size - 1].y) { Array(tiles[tiles.size - 1].x) { Tile(0, 0, "water") } }
         var counter = 0
-        for (i in strings.indices)
-            for (j in strings[i].indices) {
-                strings[i][j] = if (tiles[counter].type == "land") "X" else "-"
+        for (i in tiles2d.indices)
+            for (j in tiles2d[i].indices) {
+                tiles2d[i][j] = tiles[counter]
                 counter++
             }
 
-        return strings
+        return tiles2d
     }
 }
