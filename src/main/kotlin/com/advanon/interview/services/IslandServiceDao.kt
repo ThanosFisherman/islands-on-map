@@ -8,11 +8,14 @@ import org.slf4j.LoggerFactory
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
-import java.util.*
+import org.springframework.transaction.annotation.Transactional
 
 
 @Repository
-interface IslandRepository : MongoRepository<IslandEntity, String>
+interface IslandRepository : MongoRepository<IslandEntity, String> {
+    @Transactional
+    fun deleteAllByMapId(mapId: String)
+}
 
 @Service
 class IslandServiceDao(private val islandRepository: IslandRepository) {
@@ -21,35 +24,34 @@ class IslandServiceDao(private val islandRepository: IslandRepository) {
     fun locateIslands(mapEntity: MapEntity) {
         val map2d = build2dArray(mapEntity)
 
-        var counter = 0
-
+        deleteAllByMapId(mapEntity)
         for (i in map2d.indices)
             for (j in map2d[i].indices) {
                 if (map2d[i][j].type == "land") {
-                    counter++
-                    changeLandToWater(map2d, i, j)
+                    val tiles = mutableListOf<Tile>()
+                    changeLandToWater(map2d, i, j, tiles)
+                    saveIsland(mapEntity, tiles)
                 }
             }
-        log.info("NUMBER OF ISLANDS $counter")
     }
 
-    private fun changeLandToWater(map2d: Array<Array<Tile>>, i: Int, j: Int) {
+    private fun changeLandToWater(map2d: Array<Array<Tile>>, i: Int, j: Int, tiles: MutableList<Tile>) {
+
         if (i < 0 || i >= map2d.size || j < 0 || j >= map2d[0].size || map2d[i][j].type == "water") return
+        tiles.add(map2d[i][j])
         map2d[i][j].type = "water"
-        changeLandToWater(map2d, i - 1, j)
-        changeLandToWater(map2d, i + 1, j)
-        changeLandToWater(map2d, i, j - 1)
-        changeLandToWater(map2d, i, j + 1)
+        changeLandToWater(map2d, i - 1, j, tiles)
+        changeLandToWater(map2d, i + 1, j, tiles)
+        changeLandToWater(map2d, i, j - 1, tiles)
+        changeLandToWater(map2d, i, j + 1, tiles)
     }
 
     private fun sortCoords(mapEntity: MapEntity): List<Tile> {
-        val tiles = mapEntity.attributes.tiles.toMutableList()
+        val tiles = mapEntity.attributes.tiles.map { it.copy() } //deep copy everything
 
-        tiles.sortWith(Comparator { o1, o2 ->
+        return tiles.sortedWith(kotlin.Comparator { o1, o2 ->
             if (compareValues(o1.x, o2.x) == 0) 0 else compareValues(o1.y, o2.y)
         })
-
-        return tiles
     }
 
     fun printArray(mapEntity: MapEntity) {
@@ -75,4 +77,16 @@ class IslandServiceDao(private val islandRepository: IslandRepository) {
 
         return tiles2d
     }
+
+    fun deleteAllByMapId(mapEntity: MapEntity) {
+        mapEntity.id?.let { islandRepository.deleteAllByMapId(it) }
+    }
+
+    private fun saveIsland(mapEntity: MapEntity, tiles: List<Tile>) {
+
+        val island = mapEntity.id?.let { IslandEntity(tiles, it) }
+        island?.let { islandRepository.save(it) }
+
+    }
+
 }

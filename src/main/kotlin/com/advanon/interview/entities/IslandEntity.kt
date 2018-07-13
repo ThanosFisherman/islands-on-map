@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document(collection = "islands")
 data class IslandEntity(
         val tiles: List<Tile>,
-        val map_id: String,
+        val mapId: String,
         @Id @JsonIgnore var id: String? = null)

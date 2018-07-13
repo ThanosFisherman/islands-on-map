@@ -20,9 +20,8 @@ class InterviewApplication {
     fun init(restClient: RestClient, mapServiceDao: MapServiceDao, islandServiceDao: IslandServiceDao) = CommandLineRunner {
         val map = restClient.getMap()
         mapServiceDao.saveOrUpdateMap(map)
-        // islandServiceDao.locateIslands(map)
-        islandServiceDao.printArray(map)
         islandServiceDao.locateIslands(map)
+        islandServiceDao.printArray(map)
     }
 }
 
