@@ -28,7 +28,7 @@ class IslandController(private val islandServiceDao: IslandServiceDao, private v
     fun getIslandById(@PathVariable(value = "id", required = true) islandId: String): ResponseEntity<Any> {
         log.info(islandId)
         val island = islandServiceDao.getIslandById(islandId)
-                ?: return ResponseEntity.badRequest().body(mapOf("error" to "no such id"))
+                ?: return ResponseEntity.badRequest().body(mapOf("error" to "No such id"))
 
         return ResponseEntity.ok(island)
 

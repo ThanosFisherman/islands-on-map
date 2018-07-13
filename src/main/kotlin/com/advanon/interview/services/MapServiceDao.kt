@@ -27,7 +27,7 @@ class MapServiceDao(private val mapRepository: MapRepository) {
 
     fun printMaps(): StringBuilder {
 
-        val builder = StringBuilder()
+        val builder = StringBuilder("<pre>\n\n")
         for (map in getMaps()) {
             val map2d = build2dArray(map)
 
@@ -36,19 +36,8 @@ class MapServiceDao(private val mapRepository: MapRepository) {
                     if (j.type == "land") builder.append("X") else builder.append("-")
                 builder.append("\n")
             }
-            builder.append("\n").append("\n")
-        }
-        return builder
-    }
-
-    fun printMap(mapEntity: MapEntity) {
-        val builder = StringBuilder()
-        val map2d = build2dArray(mapEntity)
-
-        for (row in map2d) {
-            for (j in row)
-                if (j.type == "land") builder.append("X") else builder.append("-")
             builder.append("\n")
         }
+        return builder.append("</pre>\n")
     }
 }
