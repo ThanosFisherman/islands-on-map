@@ -35,7 +35,10 @@ class IslandController(private val islandServiceDao: IslandServiceDao, private v
     }
 
     @GetMapping("/maps")
+    fun getMaps() = ResponseEntity.ok(mapServiceDao.getMaps())
+
+    @GetMapping("/maps/ascii")
     fun printMap(): String {
-        return "HELLO WORLD"
+        return mapServiceDao.printMaps().toString()
     }
 }

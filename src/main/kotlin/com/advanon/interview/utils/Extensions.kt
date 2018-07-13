@@ -1,4 +1,4 @@
-package com.advanon.interview
+package com.advanon.interview.utils
 
 import org.springframework.data.repository.CrudRepository
 
