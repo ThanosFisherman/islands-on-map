@@ -3,6 +3,7 @@ package com.advanon.interview.services
 import com.advanon.interview.entities.IslandEntity
 import com.advanon.interview.entities.MapEntity
 import com.advanon.interview.entities.Tile
+import com.advanon.interview.findOneById
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.mongodb.repository.MongoRepository
@@ -19,9 +20,9 @@ interface IslandRepository : MongoRepository<IslandEntity, String> {
 
 @Service
 class IslandServiceDao(private val islandRepository: IslandRepository) {
-    val log: Logger = LoggerFactory.getLogger(this.javaClass)
+    private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    fun locateIslands(mapEntity: MapEntity) {
+    fun locateAndSaveIslands(mapEntity: MapEntity) {
         val map2d = build2dArray(mapEntity)
 
         deleteAllByMapId(mapEntity)
@@ -81,6 +82,10 @@ class IslandServiceDao(private val islandRepository: IslandRepository) {
     fun deleteAllByMapId(mapEntity: MapEntity) {
         mapEntity.id?.let { islandRepository.deleteAllByMapId(it) }
     }
+
+    fun getAllIslands() = islandRepository.findAll()
+
+    fun getIslandById(id: String) = islandRepository.findOneById(id)
 
     private fun saveIsland(mapEntity: MapEntity, tiles: List<Tile>) {
 

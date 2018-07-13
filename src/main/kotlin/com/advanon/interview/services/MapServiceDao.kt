@@ -14,7 +14,7 @@ interface MapRepository : MongoRepository<MapEntity, String> {
 
 @Service
 class MapServiceDao(private val mapRepository: MapRepository) {
-    val log: Logger = LoggerFactory.getLogger(this.javaClass)
+    private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
     fun saveOrUpdateMap(mapEntity: MapEntity): MapEntity {
         val storedMap = mapRepository.findByDataIdAndDataType(mapEntity.data.id, mapEntity.data.type)

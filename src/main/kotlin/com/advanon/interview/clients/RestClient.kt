@@ -5,7 +5,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.stereotype.Component
 
 @Component
-class RestClient(val restTemplateBuilder: RestTemplateBuilder) {
+class RestClient(private val restTemplateBuilder: RestTemplateBuilder) {
 
     private val url = "https://private-2e8649-advapi.apiary-mock.com/map"
 
