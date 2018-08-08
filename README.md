@@ -26,12 +26,12 @@ Instructions
 -------------
 Following are the instructions for this task:
 
-#### Islands on a map
+### Islands on a map
  
 Advanon decided to work with the marine to fight pirates and we need to index maps and islands on those maps.
 Given is an API endpoint providing you with tiles for a map. https://advapi.docs.apiary.io/
 
-##### Task
+#### Task
 * Implement an API-only Spring Boot application.
 * You can use ​https://start.spring.io/​ to create the project from zero, please select Gradle, Kotlin and any Spring Boot version you would like to use.
 * You can use any database of your choice.
@@ -57,7 +57,7 @@ When making a GET call to "api/islands" you should retrieve all islands with the
  
 When making a GET call to "api/islands/:id" you should retrieve just one island with the matching id. Also including related tiles. 
 
-##### Bonus​:
+#### Bonus​:
 - Provide a Dockerfile which allows to run your app  
 - Add an API endpoint that returns the map in ASCII style. Output could be something like: 
 
