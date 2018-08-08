@@ -62,7 +62,7 @@ class IslandServiceDao(private val islandRepository: IslandRepository, private v
     private fun saveIsland(mapEntity: MapEntity, tiles: List<Tile>) {
 
         val island = mapEntity.id?.let { IslandEntity(tiles, it) }
-        island?.let { islandRepository.save(it) }
+        island?.let { islandRepository.save(it.apply { tiles.onEach { tile -> tile.type = "land" } }) }
 
     }
 
