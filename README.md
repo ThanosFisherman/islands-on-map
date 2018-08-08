@@ -7,7 +7,7 @@ My Solution was rejected with the following reasoning:
 _"The company demands a very high skill set for its remote team therefore we had to choose other applicants who did better."_
 
 So I decided to post my solution to GitHub and kindly ask for **Contributions** in order to improve my Code Quality, but
-I will probably continue improving / optimizing this little project myself anyways even if I don't get any.
+I will most likely continue improving / optimizing this little project myself anyways.
 
 So The next step is probably to make the project reactive using WebFlux (Reactor) or RxJava. Then write some tests and see how it goes from there.
 
