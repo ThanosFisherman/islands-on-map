@@ -33,7 +33,7 @@ Given is an API endpoint providing you with tiles for a map. https://advapi.docs
 
 #### Task
 * Implement an API-only Spring Boot application.
-* You can use ​https://start.spring.io/​ to create the project from zero, please select Gradle, Kotlin and any Spring Boot version you would like to use.
+* You can use https://start.spring.io/ to create the project from zero, please select Gradle, Kotlin and any Spring Boot version you would like to use.
 * You can use any database of your choice.
 * You can use any libs you like.
 * Use a local git repository and send us a tarball archive with your solution by email.
@@ -44,8 +44,8 @@ Your App should have 3 API endpoints
 - GET "api/islands" 
 - GET "api/islands/:id" 
  
-When a POST call to "api/maps" is made the app should make a GET call to
-https://private-2e8649-advapi.apiary-mock.com/map​ and create in the database entries for: 
+When a POST call to "api/maps" is made the app should make a GET call to https://private-2e8649-advapi.apiary-mock.com/map
+and create in the database entries for: 
 - The given "Map" and the "Tiles" that belong to the map 
 - The islands that can be detected on the map with related tiles 
 - An island should belong to a map 
@@ -57,7 +57,7 @@ When making a GET call to "api/islands" you should retrieve all islands with the
  
 When making a GET call to "api/islands/:id" you should retrieve just one island with the matching id. Also including related tiles. 
 
-#### Bonus​:
+#### Bonus:
 - Provide a Dockerfile which allows to run your app  
 - Add an API endpoint that returns the map in ASCII style. Output could be something like: 
 
