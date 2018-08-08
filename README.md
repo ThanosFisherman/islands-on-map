@@ -44,8 +44,8 @@ Your App should have 3 API endpoints
 - GET "api/islands" 
 - GET "api/islands/:id" 
  
-When a POST call to "api/maps" is made the app should make a GET call to
-https://private-2e8649-advapi.apiary-mock.com/map​ and create in the database entries for: 
+When a POST call to "api/maps" is made the app should make a GET call to https://private-2e8649-advapi.apiary-mock.com/map
+and create in the database entries for: 
 - The given "Map" and the "Tiles" that belong to the map 
 - The islands that can be detected on the map with related tiles 
 - An island should belong to a map 
