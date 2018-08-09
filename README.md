@@ -1,15 +1,17 @@
 Description
 ------------
-This is a home task for a remote backend position that was assigned to me by a Swiss company named [Advanon](https://www.advanon.com/en).
+This is a home task for a remote backend position that was assigned to me a while ago.
 
 My Solution was rejected with the following reasoning:
 
 _"The company demands a very high skill set for its remote team therefore we had to choose other applicants who did better."_
 
-So I decided to post my solution to GitHub and kindly ask for **Contributions** in order to improve my Code Quality, but
+So I decided to post my solution to GitHub and kindly seek for contributions in order to improve my Code Quality, but
 I will most likely continue improving / optimizing this little project myself anyways.
 
-So The next step is probably to make the project reactive using WebFlux (Reactor) or RxJava. Then write some tests and see how it goes from there.
+So The next step is probably to further lower the coupling of components, then write some tests and later on make the project reactive using WebFlux (Reactor) or RxJava.
+
+**NOTE: My future commits are expected to deviate from the current requirements of this task therefore my code is not to be consider a solution to this specific exercise. Rather an individual project that will keep evolving through time.**
 
 Tech Stack
 -----------
@@ -25,22 +27,17 @@ The following technologies were used for this project.
 Instructions
 -------------
 Following are the instructions for this task:
-
-### Islands on a map
  
-Advanon decided to work with the marine to fight pirates and we need to index maps and islands on those maps.
-Given is an API endpoint providing you with tiles for a map. https://advapi.docs.apiary.io/
-
 #### Task
 * Implement an API-only Spring Boot application.
 * You can use https://start.spring.io/ to create the project from zero, please select Gradle, Kotlin and any Spring Boot version you would like to use.
 * You can use any database of your choice.
 * You can use any libs you like.
 * Use a local git repository and send us a tarball archive with your solution by email.
-* Don't put your solution on a publicly accessible repository. (#SorryNotSoSorry :P)
- 
+* Don't put your solution on a publicly accessible repository.
+
 Your App should have 3 API endpoints 
-- POST "api/maps" 
+- POST "api/maps" (I will **not** provide this endpoint)
 - GET "api/islands" 
 - GET "api/islands/:id" 
  
@@ -48,7 +45,9 @@ When a POST call to "api/maps" is made the app should make a GET call to https:/
 and create in the database entries for: 
 - The given "Map" and the "Tiles" that belong to the map 
 - The islands that can be detected on the map with related tiles 
-- An island should belong to a map 
+- An island should belong to a map
+
+**NOTE: I will not provide the endpoint mentioned above in my future commits. Instead my service will initialize its database by fetching https://private-2e8649-advapi.apiary-mock.com/map at startup.**
  
 An island is formed by tiles of type "land" which are surrounded by "water" tiles. Two tiles belong to the same island if they touch.
 Tiles only count as touching if they are directly vertically or horizontally next to each other. If they touch with their corners they do not count as touching.  
