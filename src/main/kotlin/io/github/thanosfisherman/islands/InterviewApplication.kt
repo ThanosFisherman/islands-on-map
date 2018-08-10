@@ -1,4 +1,4 @@
-package com.advanon.interview
+package io.github.thanosfisherman.islands
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

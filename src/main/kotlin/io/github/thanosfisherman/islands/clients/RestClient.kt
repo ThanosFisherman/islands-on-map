@@ -1,6 +1,6 @@
-package com.advanon.interview.clients
+package io.github.thanosfisherman.islands.clients
 
-import com.advanon.interview.entities.MapEntity
+import io.github.thanosfisherman.islands.entities.MapEntity
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.stereotype.Component
 

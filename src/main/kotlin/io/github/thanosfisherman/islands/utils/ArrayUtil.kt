@@ -1,13 +1,13 @@
-package com.advanon.interview.utils
+package io.github.thanosfisherman.islands.utils
 
-import com.advanon.interview.entities.MapEntity
-import com.advanon.interview.entities.Tile
+import io.github.thanosfisherman.islands.entities.MapEntity
+import io.github.thanosfisherman.islands.entities.Tile
 
 object ArrayUtil {
 
     fun build2dArray(mapEntity: MapEntity): Array<Array<Tile>> {
         val tiles = sortCoords(mapEntity)
-        val tiles2d = Array(tiles[tiles.size - 1].y) { Array(tiles[tiles.size - 1].x) { Tile(0, 0, "water") } }
+        val tiles2d = Array(tiles[tiles.size - 1].y) { _ -> Array(tiles[tiles.size - 1].x) { Tile(0, 0, "water") } }
         var counter = 0
         for (i in tiles2d.indices)
             for (j in tiles2d[i].indices) {

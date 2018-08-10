@@ -19,7 +19,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.advanon'
+group = 'io.github.thanosfisherman'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 compileKotlin {

@@ -1,10 +1,10 @@
-package com.advanon.interview.services
+package io.github.thanosfisherman.islands.services
 
-import com.advanon.interview.entities.IslandEntity
-import com.advanon.interview.entities.MapEntity
-import com.advanon.interview.entities.Tile
-import com.advanon.interview.utils.ArrayUtil.build2dArray
-import com.advanon.interview.utils.findOneById
+import io.github.thanosfisherman.islands.entities.IslandEntity
+import io.github.thanosfisherman.islands.entities.MapEntity
+import io.github.thanosfisherman.islands.entities.Tile
+import io.github.thanosfisherman.islands.utils.ArrayUtil.build2dArray
+import io.github.thanosfisherman.islands.utils.findOneById
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.mongodb.repository.MongoRepository

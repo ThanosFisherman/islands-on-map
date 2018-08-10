@@ -1,4 +1,4 @@
-package com.advanon.interview.utils
+package io.github.thanosfisherman.islands.utils
 
 import org.springframework.data.repository.CrudRepository
 

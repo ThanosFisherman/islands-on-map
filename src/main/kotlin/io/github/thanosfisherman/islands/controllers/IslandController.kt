@@ -1,9 +1,9 @@
-package com.advanon.interview.controllers
+package io.github.thanosfisherman.islands.controllers
 
-import com.advanon.interview.clients.RestClient
-import com.advanon.interview.entities.MapEntity
-import com.advanon.interview.services.IslandServiceDao
-import com.advanon.interview.services.MapServiceDao
+import io.github.thanosfisherman.islands.clients.RestClient
+import io.github.thanosfisherman.islands.entities.MapEntity
+import io.github.thanosfisherman.islands.services.IslandServiceDao
+import io.github.thanosfisherman.islands.services.MapServiceDao
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

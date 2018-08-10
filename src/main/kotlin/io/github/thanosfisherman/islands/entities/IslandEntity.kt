@@ -1,4 +1,4 @@
-package com.advanon.interview.entities
+package io.github.thanosfisherman.islands.entities
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
