@@ -37,7 +37,7 @@ Following are the instructions for this task:
 * Don't put your solution on a publicly accessible repository.
 
 Your App should have 3 API endpoints 
-- POST "api/maps" (I will **not** provide this endpoint)
+- POST "api/maps"
 - GET "api/islands" 
 - GET "api/islands/:id" 
  
@@ -47,7 +47,7 @@ and create in the database entries for:
 - The islands that can be detected on the map with related tiles 
 - An island should belong to a map
 
-**NOTE: I will not provide the endpoint mentioned above in my future commits. Instead my service will initialize its database by fetching https://private-2e8649-advapi.apiary-mock.com/map at startup.**
+**In my future commits calling the `POST` endpoint above won't be necessary because my service will initialize its database by fetching https://private-2e8649-advapi.apiary-mock.com/map at startup.**
  
 An island is formed by tiles of type "land" which are surrounded by "water" tiles. Two tiles belong to the same island if they touch.
 Tiles only count as touching if they are directly vertically or horizontally next to each other. If they touch with their corners they do not count as touching.  
