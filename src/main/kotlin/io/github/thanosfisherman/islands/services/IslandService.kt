@@ -1,9 +1,8 @@
 package io.github.thanosfisherman.islands.services
 
+import io.github.thanosfisherman.islands.algorithms.IIslandDetector
 import io.github.thanosfisherman.islands.entities.IslandEntity
 import io.github.thanosfisherman.islands.entities.MapEntity
-import io.github.thanosfisherman.islands.entities.Tile
-import io.github.thanosfisherman.islands.utils.ArrayUtil.build2dArray
 import io.github.thanosfisherman.islands.utils.findOneById
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -14,56 +13,31 @@ import org.springframework.stereotype.Service
 
 @Repository
 interface IslandRepository : MongoRepository<IslandEntity, String> {
-    fun deleteAllByMapId(mapId: String)
+    fun deleteAllByMapId(mapId: String): List<IslandEntity>
 }
 
 @Service
-class IslandServiceDao(private val islandRepository: IslandRepository, private val mapServiceDao: MapServiceDao) {
+class IslandService(private val islandRepository: IslandRepository, private val islandDetector: IIslandDetector) : IIslandService {
+
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    fun locateAndSaveIslands(mapEntity: MapEntity) {
-        val map2d = build2dArray(mapEntity)
-
+    override fun locateAndSaveIslands(mapEntity: MapEntity) {
         deleteAllByMapId(mapEntity)
-        for (i in map2d.indices)
-            for (j in map2d[i].indices) {
-                if (map2d[i][j].type == "land") {
-                    val tiles = mutableListOf<Tile>()
-                    changeLandToWater(map2d, i, j, tiles)
-                    saveIsland(mapEntity, tiles)
-                }
-            }
+        val islands = islandDetector.detectIslands(mapEntity)
+        islands.onEach { islandRepository.save(it) }
     }
 
-    private fun changeLandToWater(map2d: Array<Array<Tile>>, i: Int, j: Int, tiles: MutableList<Tile>) {
+    override fun deleteAllByMapId(mapEntity: MapEntity): List<IslandEntity> {
 
-        if (i < 0 || i >= map2d.size || j < 0 || j >= map2d[0].size || map2d[i][j].type == "water") return
-        tiles.add(map2d[i][j])
-        map2d[i][j].type = "water"
-        changeLandToWater(map2d, i - 1, j, tiles)
-        changeLandToWater(map2d, i + 1, j, tiles)
-        changeLandToWater(map2d, i, j - 1, tiles)
-        changeLandToWater(map2d, i, j + 1, tiles)
+        val islands = islandRepository.deleteAllByMapId(mapEntity.id ?: "")
+        return if (islands.isEmpty()) listOf() else islands
+
     }
 
-    fun deleteAllByMapId(mapEntity: MapEntity) {
-        mapEntity.id?.let { islandRepository.deleteAllByMapId(it) }
-    }
-
-    fun getAllIslands(): MutableList<IslandEntity> {
-        val maps = mapServiceDao.getMaps()
-        for (map in maps)
-            locateAndSaveIslands(map)
+    override fun getAllIslands(): MutableList<IslandEntity> {
         return islandRepository.findAll()
     }
 
-    fun getIslandById(id: String) = islandRepository.findOneById(id)
-
-    private fun saveIsland(mapEntity: MapEntity, tiles: List<Tile>) {
-
-        val island = mapEntity.id?.let { IslandEntity(tiles, it) }
-        island?.let { islandRepository.save(it.apply { tiles.onEach { tile -> tile.type = "land" } }) }
-
-    }
+    override fun getIslandById(id: String) = islandRepository.findOneById(id)
 
 }

@@ -1,4 +1,4 @@
-package io.github.thanosfisherman.islands.clients
+package io.github.thanosfisherman.islands.components
 
 import io.github.thanosfisherman.islands.entities.MapEntity
 import org.springframework.boot.web.client.RestTemplateBuilder
