@@ -23,7 +23,7 @@ class IslandService(private val islandRepository: IslandRepository, private val 
 
     override fun locateAndSaveIslands(mapEntity: MapEntity) {
         deleteAllByMapId(mapEntity)
-        val islands = islandDetector.detectIslands(mapEntity)
+        val islands = islandDetector.detectIslands(mapEntity.id ?: "", mapEntity.attributes.tiles)
         islands.onEach { islandRepository.save(it) }
     }
 

@@ -1,7 +1,6 @@
 package io.github.thanosfisherman.islands.algorithms
 
 import io.github.thanosfisherman.islands.entities.IslandEntity
-import io.github.thanosfisherman.islands.entities.MapEntity
 import io.github.thanosfisherman.islands.entities.Tile
 import io.github.thanosfisherman.islands.utils.ArrayUtil.build2dArray
 import org.springframework.stereotype.Component
@@ -9,9 +8,9 @@ import kotlin.streams.toList
 
 @Component
 class IslandDetector : IIslandDetector {
+    override fun detectIslands(mapId: String, tiles: List<Tile>): List<IslandEntity> {
 
-    override fun detectIslands(mapEntity: MapEntity): List<IslandEntity> {
-        val map2d = build2dArray(mapEntity)
+        val map2d = build2dArray(tiles)
         val islands = mutableListOf<IslandEntity>()
 
 
@@ -30,9 +29,9 @@ class IslandDetector : IIslandDetector {
         for (i in map2d.indices)
             for (j in map2d[i].indices)
                 if (map2d[i][j].isLand) {
-                    val tiles = mutableListOf<Tile>()
-                    changeLandToWater(map2d, i, j, tiles)
-                    mapEntity.id?.let { islands.add(IslandEntity(tiles, it)) }
+                    val islandTiles = mutableListOf<Tile>()
+                    changeLandToWater(map2d, i, j, islandTiles)
+                    islands.add(IslandEntity(islandTiles, mapId))
                 }
 
         return islands.stream().peek { t -> t.tiles.onEach { it.type = "land" } }.toList()

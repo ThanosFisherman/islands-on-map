@@ -29,7 +29,7 @@ class MapService(private val mapRepository: MapRepository) : IMapService {
     override fun printMaps(): StringBuilder {
         val builder = StringBuilder("<pre>\n\n")
         for (map in getMaps()) {
-            val map2d = build2dArray(map)
+            val map2d = build2dArray(map.attributes.tiles)
 
             for (row in map2d) {
                 for (j in row)
