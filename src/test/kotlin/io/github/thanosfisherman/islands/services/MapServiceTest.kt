@@ -9,6 +9,7 @@ import org.mockito.BDDMockito
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.springframework.test.context.junit4.SpringRunner
+import java.util.*
 
 @RunWith(SpringRunner::class)
 class MapServiceTest {
@@ -63,13 +64,12 @@ class MapServiceTest {
 
     @Test
     fun findMapById() {
-        //Meh extension functions don't seem to play nicely with Mockito
 
-        /*    //given
-            BDDMockito.given(mapRepository.findOneById("1")).willReturn(mapEntity)
+        //given
+        BDDMockito.given(mapRepository.findById("1")).willReturn(Optional.of(mapEntity))
             //when
             val map = mapService.findMapById("1")
             //then
-            Assertions.assertThat(map?.id).isEqualTo("1")*/
+        Assertions.assertThat(map?.id).isEqualTo("1")
     }
 }
