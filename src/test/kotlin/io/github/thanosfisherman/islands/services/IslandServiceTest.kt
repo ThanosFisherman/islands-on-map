@@ -32,6 +32,7 @@ class IslandServiceTest {
         //given
         BDDMockito.given(islandDetector.detectIslands("1", tileList)).willReturn(listOf(IslandEntity(tileList, "1")))
         BDDMockito.given(islandRepository.deleteAllByMapId("1")).willReturn(listOf(IslandEntity(tileList, "1")))
+        BDDMockito.given(islandRepository.findAll()).willReturn(listOf(IslandEntity(tileList, "1")))
     }
 
     @Test
@@ -57,9 +58,20 @@ class IslandServiceTest {
 
     @Test
     fun getAllIslands() {
+        val islands = islandService.getAllIslands()
+        Assertions.assertThat(islands).size().isEqualTo(1)
+        BDDMockito.verify(islandRepository, BDDMockito.times(1)).findAll()
     }
 
     @Test
     fun getIslandById() {
+        //Meh extension functions don't seem to play nicely with Mockito
+
+        //given
+        //BDDMockito.given(islandRepository.findOneById("islandId1")).willReturn(IslandEntity(tileList, "1", "islandId1"))
+        //when
+        //val island = islandService.getIslandById("islandId1")
+        //then
+        //Assertions.assertThat(island?.id).isEqualTo("islandId1")
     }
 }
