@@ -47,7 +47,7 @@ class MapServiceTest {
     @Test
     fun getMaps() {
         //when
-        val map = mapService.getMaps()
+        mapService.getMaps()
 
         //then
         BDDMockito.verify(mapRepository, BDDMockito.times(1)).findAll()
@@ -56,8 +56,11 @@ class MapServiceTest {
 
     @Test
     fun printMaps() {
+
+        //when
         val actualBuilder = mapService.printMaps()
         println(actualBuilder.toString())
+        //then
         val expectedBuilder = StringBuilder("<pre>\n\n").append("XX\n").append("XX\n").append("\n").append("</pre>\n")
         Assertions.assertThat(actualBuilder.toString()).isEqualTo(expectedBuilder.toString())
     }
@@ -67,9 +70,9 @@ class MapServiceTest {
 
         //given
         BDDMockito.given(mapRepository.findById("1")).willReturn(Optional.of(mapEntity))
-            //when
-            val map = mapService.findMapById("1")
-            //then
+        //when
+        val map = mapService.findMapById("1")
+        //then
         Assertions.assertThat(map?.id).isEqualTo("1")
     }
 }
