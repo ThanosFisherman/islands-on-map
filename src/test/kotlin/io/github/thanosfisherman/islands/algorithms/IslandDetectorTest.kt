@@ -3,7 +3,7 @@ package io.github.thanosfisherman.islands.algorithms
 import io.github.thanosfisherman.islands.entities.Coords
 import io.github.thanosfisherman.islands.entities.Tile
 import io.github.thanosfisherman.islands.entities.TileType
-import org.junit.Assert
+import org.assertj.core.api.Assertions
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -54,18 +54,20 @@ class IslandDetectorTest {
                 Tile(6, 5, TileType.WATER)
         )
         val islands = islandDetector.detectIslands("1", tileList)
-        Assert.assertEquals(setOf("1", "1", "1"), islands.map { it.mapId }.toSet())
 
-        Assert.assertEquals(3, islands.size)
-        Assert.assertEquals(setOf(3, 1, 5), islands.map { it.tiles.size }.toSet())
+        Assertions.assertThat(islands.map { it.mapId }.toSet()).isEqualTo(setOf("1", "1", "1"))
+        Assertions.assertThat(islands).hasSize(3)
+        Assertions.assertThat(islands.map { it.tiles.size }.toSet()).isEqualTo(setOf(3, 1, 5))
 
         var coordsSet = islands.filter { it.tiles.size == 1 }.flatMap { it.tiles }.map { it.coords }.toSet()
-        Assert.assertEquals(setOf(Coords(5, 1)), coordsSet)
-        coordsSet = islands.filter { it.tiles.size == 3 }.flatMap { it.tiles }.map { it.coords }.toSet()
-        Assert.assertEquals(setOf(Coords(1, 1), Coords(2, 1), Coords(2, 2)), coordsSet)
-        coordsSet = islands.filter { it.tiles.size == 5 }.flatMap { it.tiles }.map { it.coords }.toSet()
-        Assert.assertEquals(setOf(Coords(5, 3), Coords(3, 4), Coords(4, 4), Coords(5, 4), Coords(4, 5)), coordsSet)
 
+        Assertions.assertThat(coordsSet).isEqualTo(setOf(Coords(5, 1)))
+        coordsSet = islands.filter { it.tiles.size == 3 }.flatMap { it.tiles }.map { it.coords }.toSet()
+
+        Assertions.assertThat(coordsSet).isEqualTo(setOf(Coords(1, 1), Coords(2, 1), Coords(2, 2)))
+        coordsSet = islands.filter { it.tiles.size == 5 }.flatMap { it.tiles }.map { it.coords }.toSet()
+
+        Assertions.assertThat(coordsSet).isEqualTo(setOf(Coords(5, 3), Coords(3, 4), Coords(4, 4), Coords(5, 4), Coords(4, 5)))
     }
 
     @Test
@@ -77,7 +79,8 @@ class IslandDetectorTest {
                 Tile(1, 1, TileType.WATER)
         )
         val islands = islandDetector.detectIslands("2", tileList)
-        Assert.assertEquals(true, islands.isEmpty())
+
+        Assertions.assertThat(islands).isEmpty()
     }
 
     @Test
@@ -89,9 +92,10 @@ class IslandDetectorTest {
                 Tile(1, 1, TileType.LAND)
         )
         val islands = islandDetector.detectIslands("2", tileList)
-        Assert.assertEquals(1, islands.size)
+
+        Assertions.assertThat(islands).size().isEqualTo(1)
         println(islands[0].tiles.size)
-        Assert.assertEquals(4, islands[0].tiles.size)
+        Assertions.assertThat(islands[0].tiles).size().isEqualTo(4)
     }
 
 
@@ -104,7 +108,8 @@ class IslandDetectorTest {
                 Tile(1, 1, TileType.LAND)
         )
         val islands = islandDetector.detectIslands("3", tileList)
-        Assert.assertEquals(2, islands.size)
-        Assert.assertEquals(true, islands.all { islandEntity -> islandEntity.tiles.size == 1 })
+
+        Assertions.assertThat(islands).size().isEqualTo(2)
+        Assertions.assertThat(islands.all { islandEntity -> islandEntity.tiles.size == 1 }).isTrue()
     }
 }
