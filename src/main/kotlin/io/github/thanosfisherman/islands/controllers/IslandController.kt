@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api")
 class IslandController(private val islandService: IIslandService, private val mapService: IMapService, private val restClient: RestClient) {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
