@@ -47,7 +47,7 @@ and create in the database entries for:
 - The islands that can be detected on the map with related tiles 
 - An island should belong to a map
 
-**Calling the `POST` endpoint above is not really necessary as my service initializes and populates its database by fetching https://private-2e8649-advapi.apiary-mock.com/map at startup. You can still call the above endpoint afterwards in order to "refresh" the database entries though.**
+**NOTE: Calling the `POST` endpoint above is not really necessary as my service initializes and populates its database by fetching https://private-2e8649-advapi.apiary-mock.com/map at startup. You can still call the above endpoint afterwards in order to "refresh" the database entries though.**
  
 An island is formed by tiles of type "land" which are surrounded by "water" tiles. Two tiles belong to the same island if they touch.
 Tiles only count as touching if they are directly vertically or horizontally next to each other. If they touch with their corners they do not count as touching.  
