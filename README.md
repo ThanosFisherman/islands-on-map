@@ -1,17 +1,6 @@
 Description
 ------------
-This is a home task for a remote backend position that was assigned to me a while ago.
-
-My Solution was rejected with the following reasoning:
-
-_"The company demands a very high skill set for its remote team therefore we had to choose other applicants who did better."_
-
-So I decided to post my solution to GitHub and kindly seek for contributions in order to improve my Code Quality, but
-I will most likely continue improving / optimizing this little project myself anyways.
-
-So The next step is probably to further lower the coupling of components, then write some tests and later on make the project reactive using WebFlux (Reactor) or RxJava.
-
-**NOTE: My future commits are expected to deviate from the current requirements of this task therefore my code is not to be consider a solution to this specific exercise. Rather an individual project that will keep evolving through time.**
+This is a playground backend app using Kotlin and Spring Boot.
 
 Tech Stack
 -----------
