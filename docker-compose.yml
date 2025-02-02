@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mongodb:
     image: mongo:latest
@@ -9,18 +7,19 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: pirates
     volumes:
       - mongodb_data:/data/db
 
   springboot-app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     container_name: springboot-app
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://root:example@mongodb:27017/mydatabase
+      SPRING_DATA_MONGODB_URI: mongodb://root:example@mongodb:27017/pirates
     depends_on:
       - mongodb
 
