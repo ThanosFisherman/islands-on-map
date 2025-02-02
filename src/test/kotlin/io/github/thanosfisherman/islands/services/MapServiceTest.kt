@@ -2,30 +2,32 @@ package io.github.thanosfisherman.islands.services
 
 import io.github.thanosfisherman.islands.entities.*
 import org.assertj.core.api.Assertions
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.springframework.test.context.junit4.SpringRunner
+import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.util.*
 
-@RunWith(SpringRunner::class)
+@ExtendWith(SpringExtension::class)
 class MapServiceTest {
 
     @InjectMocks
     lateinit var mapService: MapService
+
     @Mock
     lateinit var mapRepository: MapRepository
     private val tileList = listOf(
-            Tile(0, 0, TileType.LAND),
-            Tile(0, 1, TileType.LAND),
-            Tile(1, 0, TileType.LAND),
-            Tile(1, 1, TileType.LAND))
+        Tile(0, 0, TileType.LAND),
+        Tile(0, 1, TileType.LAND),
+        Tile(1, 0, TileType.LAND),
+        Tile(1, 1, TileType.LAND)
+    )
     private val mapEntity: MapEntity = MapEntity("1", Data("3", "map", Link("")), Attribute(tileList))
 
-    @Before
+    @BeforeEach
     fun setUp() {
         //given
         BDDMockito.given(mapRepository.findByDataIdAndDataType("3", "map")).willReturn(mapEntity)

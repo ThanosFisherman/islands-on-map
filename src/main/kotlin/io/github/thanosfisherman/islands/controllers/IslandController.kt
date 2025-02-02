@@ -9,7 +9,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class IslandController(private val islandService: IIslandService, private val mapService: IMapService, private val restClient: RestClient) {
+class IslandController(
+    private val islandService: IIslandService,
+    private val mapService: IMapService,
+    private val restClient: RestClient
+) {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
     @PostMapping("/maps")
@@ -27,7 +31,7 @@ class IslandController(private val islandService: IIslandService, private val ma
     fun getIslandById(@PathVariable(value = "id", required = true) islandId: String): ResponseEntity<Any> {
         log.info(islandId)
         val island = islandService.getIslandById(islandId)
-                ?: return ResponseEntity.badRequest().body(mapOf("error" to "No such id"))
+            ?: return ResponseEntity.badRequest().body(mapOf("error" to "No such id"))
 
         return ResponseEntity.ok(island)
 
@@ -37,7 +41,7 @@ class IslandController(private val islandService: IIslandService, private val ma
     fun deleteIslandsOnMap(@PathVariable(value = "id", required = true) mapId: String): ResponseEntity<Any> {
         log.info(mapId)
         val mapEntity = mapService.findMapById(mapId)
-                ?: return ResponseEntity.badRequest().body(mapOf("error" to "No Map that matches this id"))
+            ?: return ResponseEntity.badRequest().body(mapOf("error" to "No Map that matches this id"))
         return ResponseEntity.ok(islandService.deleteAllByMapId(mapEntity))
 
     }

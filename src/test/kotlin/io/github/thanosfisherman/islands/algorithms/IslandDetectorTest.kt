@@ -6,13 +6,11 @@ import io.github.thanosfisherman.islands.entities.TileType
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 
 
-@SpringBootTest
 class IslandDetectorTest {
 
-    lateinit var islandDetector: IIslandDetector
+    private lateinit var islandDetector: IIslandDetector
 
     @BeforeEach
     fun setUp() {
