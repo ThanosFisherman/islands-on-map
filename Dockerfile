@@ -1,23 +1,9 @@
-# Start with a base image containing Java runtime
-FROM openjdk:8-jdk-alpine
-
-# Add Maintainer Info
-LABEL maintainer="Thanos Psaridis"
-
-# Add a volume pointing to /tmp
-VOLUME /tmp
-
-# Make port 8080 available to the world outside this container
+FROM bellsoft/liberica-openjdk-debian:23
+LABEL authors="Thanos Psaridis"
+# Set the working directory inside the container
+WORKDIR /app
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} app.jar
+# Expose the port that the Spring Boot application will run on
 EXPOSE 8080
-
-# The application's jar file
-ARG JAR_FILE=./build/libs/interview-1.0-SNAPSHOT.jar
-
-# Add the application's jar to the container
-ADD ${JAR_FILE} app.jar
-
-#No java options specified
-ENV JAVA_OPTS=""
-
-# Run the jar file
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
