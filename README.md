@@ -23,7 +23,6 @@ Following are the instructions for this task:
 * You can use any database of your choice.
 * You can use any libs you like.
 * Use a local git repository and send us a tarball archive with your solution by email.
-* Don't put your solution on a publicly accessible repository.
 
 Your App should have 3 API endpoints 
 - POST "api/maps"
