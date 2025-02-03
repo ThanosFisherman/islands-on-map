@@ -66,7 +66,7 @@ class IslandControllerTest {
         BDDMockito.given(mapService.saveOrUpdateMap(mapEntity)).willReturn(mapEntity)
 
         //when
-        val result = mockmvc.perform(MockMvcRequestBuilders.post("/api/maps"))
+        val result = mockmvc.perform(MockMvcRequestBuilders.post("/maps"))
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andReturn()
@@ -77,7 +77,7 @@ class IslandControllerTest {
     @Test
     fun getAllIslands() {
         BDDMockito.given(islandService.getAllIslands()).willReturn(mutableListOf(islandEntity))
-        mockmvc.perform(MockMvcRequestBuilders.get("/api/islands"))
+        mockmvc.perform(MockMvcRequestBuilders.get("/islands"))
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andReturn()
@@ -88,7 +88,7 @@ class IslandControllerTest {
     fun getMaps() {
         BDDMockito.given(mapService.getMaps()).willReturn(listOf(mapEntity))
 
-        mockmvc.perform(MockMvcRequestBuilders.get("/api/maps"))
+        mockmvc.perform(MockMvcRequestBuilders.get("/maps"))
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andReturn()
@@ -99,7 +99,7 @@ class IslandControllerTest {
     fun printMap() {
         val expectedBuilder = StringBuilder("<pre>\n\n").append("XX\n").append("XX\n").append("\n").append("</pre>\n")
         BDDMockito.given(mapService.printMaps()).willReturn(expectedBuilder)
-        val results = mockmvc.perform(MockMvcRequestBuilders.get("/api/maps/ascii"))
+        val results = mockmvc.perform(MockMvcRequestBuilders.get("/maps/ascii"))
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andReturn()
